@@ -17,7 +17,6 @@ rustPlatform.buildRustPackage rec {
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  cargoSha256 = lib.fakeSha256;
   checkPhase = false;
 
   nativeBuildInputs = [ pkg-config pkgs.rust-bin.stable."1.60.0".minimal ];
