@@ -1,11 +1,5 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, openssl, pkg-config, libusb1 }:
-
-with import <nixpkgs> {
-  overlays = [
-    (import (fetchTarball
-      "https://github.com/oxalica/rust-overlay/archive/master.tar.gz"))
-  ];
-};
+{ lib, pkgs, stdenv, rustPlatform, fetchFromGitHub, openssl, pkg-config, libusb1
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "probe-rs-debugger";
@@ -24,9 +18,9 @@ rustPlatform.buildRustPackage rec {
   '';
 
   cargoSha256 = lib.fakeSha256;
-  doCheck = false;
+  checkPhase = false;
 
-  nativeBuildInputs = [ pkg-config rust-bin.stable."1.60.0".minimal ];
+  nativeBuildInputs = [ pkg-config pkgs.rust-bin.stable."1.60.0".minimal ];
   buildInputs = [ libusb1 openssl.dev ];
 
   meta = with lib; {
