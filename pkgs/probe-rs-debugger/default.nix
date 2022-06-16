@@ -1,7 +1,12 @@
-{ lib, pkgs, stdenv, rustPlatform, fetchFromGitHub, openssl, pkg-config, libusb1
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, openssl, pkg-config, libusb1 }:
 
-rustPlatform.buildRustPackage rec {
+let
+  fenix = import (fetchTarball {
+    url =
+      "https://github.com/nix-community/fenix/archive/720b54260dee864d2a21745bd2bb55223f58e297.tar.gz";
+    sha256 = "1mmhavhaacfcfy475j9zl831ds72q8jqavavk3z85af0pm80dj1i";
+  }) { system = "x86_64-linux"; };
+in rustPlatform.buildRustPackage rec {
   pname = "probe-rs-debugger";
   version = "nightly";
 
@@ -19,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   checkPhase = false;
 
-  nativeBuildInputs = [ pkg-config pkgs.rust-bin.stable."1.60.0".minimal ];
+  nativeBuildInputs = [ pkg-config fenix.minimal.toolchain ];
   buildInputs = [ libusb1 openssl.dev ];
 
   meta = with lib; {

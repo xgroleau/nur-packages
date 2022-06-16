@@ -1,13 +1,7 @@
 {
   description = "My personal NUR repository";
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
-  outputs = { self, nixpkgs, rust-overlay }:
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  outputs = { self, nixpkgs }:
     let
       systems = [
         "x86_64-linux"
@@ -17,12 +11,9 @@
         "armv6l-linux"
         "armv7l-linux"
       ];
-      overlays = [ (import rust-overlay) ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in {
       packages = forAllSystems (system:
-        import ./default.nix {
-          pkgs = import nixpkgs { inherit system overlays; };
-        });
+        import ./default.nix { pkgs = import nixpkgs { inherit system; }; });
     };
 }
