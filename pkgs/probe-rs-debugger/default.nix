@@ -8,21 +8,22 @@ let
   }) { system = "x86_64-linux"; };
 in rustPlatform.buildRustPackage rec {
   pname = "probe-rs-debugger";
-  version = "nightly";
+  version = "0.12.0";
 
   src = fetchFromGitHub {
     owner = "probe-rs";
     repo = "probe-rs";
-    rev = "master";
+    rev = "2fa97dc5554cf14f306109a74dc11ceaccd4daf8";
     sha256 = "sha256-OE+x8xRnEEtDCo7xmGNB7Llx2pHeRJd87v5LclOvjW8=";
   };
+
+  cargoBuildFlags = [ "--package" "probe-rs-debugger" ];
+  cargoTestFlags = cargoBuildFlags;
 
   cargoLock = { lockFile = ./Cargo.lock; };
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
   '';
-
-  checkPhase = false;
 
   nativeBuildInputs = [ pkg-config fenix.minimal.toolchain ];
   buildInputs = [ libusb1 openssl.dev ];
