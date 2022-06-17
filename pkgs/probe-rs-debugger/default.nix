@@ -14,7 +14,7 @@ in rustPlatform.buildRustPackage rec {
     owner = "probe-rs";
     repo = "probe-rs";
     rev = "2fa97dc5554cf14f306109a74dc11ceaccd4daf8";
-    sha256 = "sha256-OE+x8xRnEEtDCo7xmGNB7Llx2pHeRJd87v5LclOvjW8=";
+    sha256 = "sha256-SDQxFXGImvJgeju7G/eymT1eZ8Rkh59vFHr1q/T72P0=";
   };
 
   cargoBuildFlags = [ "--package" "probe-rs-debugger" ];
