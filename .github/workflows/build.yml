@@ -32,7 +32,7 @@ jobs:
         # Github found at
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
-          - "https://xgroleau-nur.cachix.org"
+          - "https://xgroleau.cachix.org"
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
