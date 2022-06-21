@@ -1,16 +1,21 @@
-{ lib, stdenv, fetchurl, udev }:
+{ lib, stdenv, writeText, fetchurl, udev }:
 
 stdenv.mkDerivation rec {
-  pname = "segger-ozone";
+  pname = "j-link";
   version = "7.66c";
 
   src = fetchurl {
     url = "https://www.segger.com/downloads/jlink/JLink_Linux_${
         (lib.replaceChars [ "." ] [ "" ] version)
       }_x86_64.tgz";
-    sha256 = lib.fakeSha256;
-    curlOpts =
-      "-d accept_license_agreement=accepted&non_emb_ctr=confirmed&submit=Download+software";
+    sha256 = "y1IvmSWLARP91r3g1lp6YM/HuBDs3k6e4eTAsb1BNSg=";
+    curlOpts = [
+      "-d"
+      "@${
+        writeText "cdata.txt"
+        "accept_license_agreement=accepted&non_emb_ctr=confirmed&submit=Download+software"
+      }"
+    ];
   };
 
   rpath = lib.makeLibraryPath [ udev ] + ":${stdenv.cc.cc.lib}/lib64";
