@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   probe-rs-debugger = pkgs.callPackage ./pkgs/probe-rs-debugger { };
+  j-link = pkgs.callPackage ./pkgs/j-link { };
 }
