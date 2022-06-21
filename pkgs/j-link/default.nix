@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       }_${urlPlatform}.tgz";
 
     sha256 = {
-      aarch64-linux = "0fr8pki2g4bfk1rk90dzwql37d0b71ngzs9zyx0g2jainan3sqgv";
+      aarch64-linux = "FJ2Hk9G55RUWeQHQE1Gc3eManjtLhRVyLcLLLM4icmU=";
       x86_64-linux = "q2yw/QuNUB8lWpd5dDx4J0fT5O+J6HZkoA0meT4/mQ8=";
     }.${stdenv.hostPlatform.system} or (throw
       "Unsupported system: ${stdenv.hostPlatform.system}");
