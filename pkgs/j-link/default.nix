@@ -1,6 +1,6 @@
 { lib, stdenv, writeText, fetchurl, autoPatchelfHook, fontconfig, freetype
 , libICE, libSM, libX11, libXcursor, libXext, libXfixes, libXrandr, libXrender
-, udev }:
+, makeWrapper, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "j-link";
@@ -34,12 +34,10 @@ stdenv.mkDerivation rec {
       }";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
   buildInputs = [
+    # Dependencies
     fontconfig
     freetype
     libICE
@@ -51,21 +49,29 @@ stdenv.mkDerivation rec {
     libXrandr
     libXrender
     stdenv.cc.cc.lib
-    udev
+
+    # Used to wrap with systemd
+    makeWrapper
   ];
 
-  # Exe
+  # libudev.so library is contained with systemd and is required for USB communications during runtime
+  runtimeLibs = lib.makeLibraryPath [ systemd ];
+
+  # Copy all everything from the tarball and set executable permissions. Then
+  # wrap all the executables with the correct path to find libudev (required for USB)
   installPhase = ''
+    source $stdenv/setup
+    export -f wrapProgram
     mkdir -p $out/bin
-    mv * $out
-    ln -s $out/JFlash* $out/bin/
-    ln -s $out/JLink* $out/bin/
-    ln -s $out/JMem* $out/bin/
-    ln -s $out/JRun* $out/bin/
-    ln -s $out/JTAGLoad* $out/bin/
-
+    cp -r . $out/bin
+    chmod +x $out/bin
+    for i in `find $out/bin -type f \( ! -name "*.so*" \) -perm /u=x,g=x,o=x`
+    do
+      wrapProgram $i --prefix LD_LIBRARY_PATH ":" ${runtimeLibs}
+    done
+    mkdir -p $out/lib/udev/rules.d
+    cp 99-jlink.rules $out/lib/udev/rules.d
   '';
-
   # Udev rules
   postInstall = ''
     mkdir -p $out/udev
@@ -74,7 +80,7 @@ stdenv.mkDerivation rec {
         echo "$rules is missing, must update the Nix file."
         exit 1
     fi
-    ln -s "$rules" "$out/etc/udev/rules.d/"
+    ln -s "$rules" "$out/lib/udev/rules.d/"
   '';
 
   meta = with lib; {
@@ -82,6 +88,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.segger.com/products/debug-probes/j-link/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
   };
 }
