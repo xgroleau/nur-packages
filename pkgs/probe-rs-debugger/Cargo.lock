@@ -59,9 +59,9 @@ dependencies = [
 
 [[package]]
 name = "anyhow"
-version = "1.0.57"
+version = "1.0.58"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "08f9b8508dccb7687a1d6c4ce66b2b0ecef467c94667de27d8d7fe1f8d2a9cdc"
+checksum = "bb07d2053ccdbe10e2af2995a2f116c1330396493dc1269f6a91d0ae82e19704"
 dependencies = [
  "backtrace",
 ]
@@ -190,6 +190,12 @@ name = "bitfield"
 version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "46afbd2983a5d5a7bd740ccb198caf5b82f45c40c09c0eed36052d91cb92e719"
+
+[[package]]
+name = "bitfield"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2d7e60934ceec538daadb9d8432424ed043a904d8e0243f3c6446bce549a46ac"
 
 [[package]]
 name = "bitflags"
@@ -351,9 +357,9 @@ dependencies = [
 
 [[package]]
 name = "cargo_metadata"
-version = "0.14.2"
+version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4acbb09d9ee8e23699b9634375c72795d095bf268439da88562cf9b501f181fa"
+checksum = "3abb7553d5b9b8421c6de7cb02606ff15e0c6eea7d8eadd75ef013fd636bec36"
 dependencies = [
  "camino",
  "cargo-platform",
@@ -499,7 +505,7 @@ dependencies = [
  "encode_unicode",
  "libc",
  "once_cell",
- "terminal_size",
+ "terminal_size 0.1.17",
  "winapi",
 ]
 
@@ -533,7 +539,7 @@ checksum = "9075300b07c6a56263b9b582c214d0ff037b00d45ec9fde1cc711490c56f1bb9"
 dependencies = [
  "aligned",
  "bare-metal",
- "bitfield",
+ "bitfield 0.13.2",
  "cortex-m 0.7.5",
  "volatile-register",
 ]
@@ -545,7 +551,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cd20d4ac4aa86f4f75f239d59e542ef67de87cce2c282818dc6e84155d3ea126"
 dependencies = [
  "bare-metal",
- "bitfield",
+ "bitfield 0.13.2",
  "embedded-hal",
  "volatile-register",
 ]
@@ -836,7 +842,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "46e245f4c8ec30c6415c56cb132c07e69e74f1942f6b4a4061da748b49f486ca"
 dependencies = [
  "cfg-if",
- "rustix",
+ "rustix 0.34.8",
  "windows-sys 0.30.0",
 ]
 
@@ -993,7 +999,7 @@ dependencies = [
 
 [[package]]
 name = "gdb-server"
-version = "0.12.0"
+version = "0.13.0"
 dependencies = [
  "anyhow",
  "gdbstub",
@@ -1374,6 +1380,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9448015e586b611e5d322f6703812bbca2f1e709d5773ecd38ddb4e3bb649504"
 
 [[package]]
+name = "io-lifetimes"
+version = "0.7.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "24c3f4eff5495aee4c0399d7b6a0dc2b6e81be84242ffbfcf253ebacccc1d0cb"
+
+[[package]]
 name = "ipconfig"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1751,10 +1763,19 @@ dependencies = [
 ]
 
 [[package]]
-name = "once_cell"
-version = "1.12.0"
+name = "object"
+version = "0.29.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7709cef83f0c1f58f666e746a08b21e0085f7440fa6a29cc194d68aac97a4225"
+checksum = "21158b2c33aa6d4561f1c0a6ea283ca92bc54802a93b263e910746d679a7eb53"
+dependencies = [
+ "memchr",
+]
+
+[[package]]
+name = "once_cell"
+version = "1.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "18a6dbe30758c9f83eb00cbea4ac95966305f5a7772f3f42ebfc7fc7eddbd8e1"
 
 [[package]]
 name = "opaque-debug"
@@ -1952,12 +1973,12 @@ dependencies = [
 
 [[package]]
 name = "probe-rs"
-version = "0.12.0"
+version = "0.13.0"
 dependencies = [
  "anyhow",
  "base64",
  "bincode",
- "bitfield",
+ "bitfield 0.14.0",
  "bitvec 1.0.0",
  "chrono",
  "clap",
@@ -1972,7 +1993,7 @@ dependencies = [
  "libftdi1-sys",
  "log",
  "num-traits",
- "object 0.28.4",
+ "object 0.29.0",
  "once_cell",
  "pretty_env_logger",
  "probe-rs-target",
@@ -1986,15 +2007,14 @@ dependencies = [
  "static_assertions",
  "svg",
  "thiserror",
- "thousands",
 ]
 
 [[package]]
 name = "probe-rs-cli"
-version = "0.12.0"
+version = "0.13.0"
 dependencies = [
  "anyhow",
- "bitfield",
+ "bitfield 0.14.0",
  "capstone",
  "colored",
  "gdb-server",
@@ -2014,7 +2034,7 @@ dependencies = [
 
 [[package]]
 name = "probe-rs-cli-util"
-version = "0.12.0"
+version = "0.13.0"
 dependencies = [
  "anyhow",
  "byte-unit",
@@ -2036,17 +2056,17 @@ dependencies = [
  "sentry",
  "serde",
  "simplelog",
- "terminal_size",
+ "terminal_size 0.2.1",
  "thiserror",
 ]
 
 [[package]]
 name = "probe-rs-debugger"
-version = "0.12.0"
+version = "0.13.0"
 dependencies = [
  "anyhow",
  "base64",
- "bitfield",
+ "bitfield 0.14.0",
  "capstone",
  "chrono",
  "clap",
@@ -2068,7 +2088,7 @@ dependencies = [
 
 [[package]]
 name = "probe-rs-rtt"
-version = "0.12.0"
+version = "0.13.0"
 dependencies = [
  "log",
  "probe-rs",
@@ -2079,7 +2099,7 @@ dependencies = [
 
 [[package]]
 name = "probe-rs-target"
-version = "0.12.0"
+version = "0.13.0"
 dependencies = [
  "base64",
  "jep106",
@@ -2338,7 +2358,7 @@ dependencies = [
 
 [[package]]
 name = "rtthost"
-version = "0.12.0"
+version = "0.13.0"
 dependencies = [
  "clap",
  "pretty_env_logger",
@@ -2388,10 +2408,24 @@ checksum = "2079c267b8394eb529872c3cf92e181c378b41fea36e68130357b52493701d2e"
 dependencies = [
  "bitflags",
  "errno",
- "io-lifetimes",
+ "io-lifetimes 0.6.1",
  "libc",
  "linux-raw-sys",
  "winapi",
+]
+
+[[package]]
+name = "rustix"
+version = "0.35.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d51cc38aa10f6bbb377ed28197aa052aa4e2b762c22be9d3153d01822587e787"
+dependencies = [
+ "bitflags",
+ "errno",
+ "io-lifetimes 0.7.2",
+ "libc",
+ "linux-raw-sys",
+ "windows-sys 0.36.1",
 ]
 
 [[package]]
@@ -2598,9 +2632,9 @@ checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
 
 [[package]]
 name = "sentry"
-version = "0.26.0"
+version = "0.27.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "904eca4fb30c6112a1dae60c0a9e29cfb42f42129da4260f1ee20e94151b62e3"
+checksum = "73642819e7fa63eb264abc818a2f65ac8764afbe4870b5ee25bcecc491be0d4c"
 dependencies = [
  "httpdate",
  "reqwest",
@@ -2614,9 +2648,9 @@ dependencies = [
 
 [[package]]
 name = "sentry-anyhow"
-version = "0.26.0"
+version = "0.27.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "40ec14f6bedc88480805096ee145afcc1e517a28db3f58f51b93e2899d932f56"
+checksum = "08d3479158a7396b4dfd346a1944d523427a225ff3c39102e8e985bc21cdfea8"
 dependencies = [
  "anyhow",
  "sentry-backtrace",
@@ -2625,21 +2659,21 @@ dependencies = [
 
 [[package]]
 name = "sentry-backtrace"
-version = "0.26.0"
+version = "0.27.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1671189d1b759879fa4bdde46c50a499abb14332ed81f84fc6f60658f41b2fdb"
+checksum = "49bafa55eefc6dbc04c7dac91e8c8ab9e89e9414f3193c105cabd991bbc75134"
 dependencies = [
  "backtrace",
- "lazy_static",
+ "once_cell",
  "regex",
  "sentry-core",
 ]
 
 [[package]]
 name = "sentry-contexts"
-version = "0.26.0"
+version = "0.27.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "db80ceff16bb1a4b2689b8758e5e61e405fc4d8ff9f2d1b5b845b76ce37fa34e"
+checksum = "c63317c4051889e73f0b00ce4024cae3e6a225f2e18a27d2c1522eb9ce2743da"
 dependencies = [
  "hostname",
  "libc",
@@ -2650,11 +2684,11 @@ dependencies = [
 
 [[package]]
 name = "sentry-core"
-version = "0.26.0"
+version = "0.27.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6c9f509d3959ed4dbbd80ca42572caad682aaa1cdd92c719e0815d0e87f82c96"
+checksum = "5a4591a2d128af73b1b819ab95f143bc6a2fbe48cd23a4c45e1ee32177e66ae6"
 dependencies = [
- "lazy_static",
+ "once_cell",
  "rand",
  "sentry-types",
  "serde",
@@ -2663,9 +2697,9 @@ dependencies = [
 
 [[package]]
 name = "sentry-panic"
-version = "0.26.0"
+version = "0.27.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f8b442769cc34115f64393f7bfe4f863c3c38749e0c0b9613a7ae25b37c7ba53"
+checksum = "696c74c5882d5a0d5b4a31d0ff3989b04da49be7983b7f52a52c667da5b480bf"
 dependencies = [
  "sentry-backtrace",
  "sentry-core",
@@ -2673,9 +2707,9 @@ dependencies = [
 
 [[package]]
 name = "sentry-types"
-version = "0.26.0"
+version = "0.27.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "254b600e93e9ef00a48382c9f1e86d27884bd9a5489efa4eb9210c20c72e88a6"
+checksum = "823923ae5f54a729159d720aa12181673044ee5c79cbda3be09e56f885e5468f"
 dependencies = [
  "debugid",
  "getrandom",
@@ -2867,9 +2901,9 @@ checksum = "6bdef32e8150c2a081110b42772ffe7d7c9032b606bc226c8260fd97e0976601"
 
 [[package]]
 name = "svd-parser"
-version = "0.13.4"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e41489e88698a6430a19dff2790eb8450e4fb8a3a874b5cb749d0fbacbcc3992"
+checksum = "3ba282757791abde81f452cd56fc10d076405f45c27dfc59a92d16079604d17a"
 dependencies = [
  "anyhow",
  "roxmltree",
@@ -2879,9 +2913,9 @@ dependencies = [
 
 [[package]]
 name = "svd-rs"
-version = "0.13.2"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0dff9fc46f6c0a243e3356d25cd481d5d34e4e8d4049f53f72eda349c35ade14"
+checksum = "a63b2f66e64597d651d450621f8c7a557af11da1752847de1b8ce75ac8b9a699"
 dependencies = [
  "once_cell",
  "regex",
@@ -2913,7 +2947,7 @@ checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 
 [[package]]
 name = "target-gen"
-version = "0.12.0"
+version = "0.13.0"
 dependencies = [
  "anyhow",
  "assert_cmd",
@@ -2970,6 +3004,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "terminal_size"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8440c860cf79def6164e4a0a983bcc2305d82419177a0e0c71930d049e3ac5a1"
+dependencies = [
+ "rustix 0.35.7",
+ "windows-sys 0.36.1",
+]
+
+[[package]]
 name = "termtree"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3000,12 +3044,6 @@ dependencies = [
  "quote",
  "syn",
 ]
-
-[[package]]
-name = "thousands"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3bf63baf9f5039dadc247375c29eb13706706cfde997d0330d05aa63a77d8820"
 
 [[package]]
 name = "thread_local"

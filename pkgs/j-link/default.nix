@@ -69,18 +69,9 @@ stdenv.mkDerivation rec {
     do
       wrapProgram $i --prefix LD_LIBRARY_PATH ":" ${runtimeLibs}
     done
+
     mkdir -p $out/lib/udev/rules.d
-    cp 99-jlink.rules $out/lib/udev/rules.d
-  '';
-  # Udev rules
-  postInstall = ''
-    mkdir -p $out/udev
-    rules="$out/99-jlink.rules"
-    if [ ! -f "$rules" ]; then
-        echo "$rules is missing, must update the Nix file."
-        exit 1
-    fi
-    ln -s "$rules" "$out/lib/udev/rules.d/"
+    ln -s 99-jlink.rules $out/lib/udev/rules.d
   '';
 
   meta = with lib; {
