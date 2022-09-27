@@ -16,4 +16,5 @@
 
   probe-rs-debugger = pkgs.callPackage ./pkgs/probe-rs-debugger { };
   jlink = pkgs.callPackage ./pkgs/jlink { };
+  slint-lsp = pkgs.callPackage ./pkgs/slint-lsp { };
 }
